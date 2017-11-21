@@ -1,28 +1,28 @@
 package services
 
-object BenchMarkUtils {
+import services.UnitCalcable
 
-  private val NANOSECONDS = 1000000000.0
+object BenchMarkUtils extends UnitCalcable {
 
   def measure(n: String)(cmd: () => Any) = {
     val runTime = this.measureRunTime(cmd)
-    println(s"$n の計測でかかった時間 : $runTime 秒")
+    println(s"$n の計測でかかった時間 : $runTime ナノ秒")
   }
 
-  private def measureRunTime(cmd: () => Any):Double = {
+  private def measureRunTime(cmd: () => Any): Double = {
     val startTime = System.nanoTime()
     cmd()
     val endTime = System.nanoTime()
-    (endTime - startTime) / NANOSECONDS
+    (endTime - startTime) / Giga
   }
 
   def compareMeasure(n:String, x:() => Any)(m:String, y:() => Any) = {
     val masureTime = measureRunTime _
-    val xTime = masureTime(x)
-    val yTime = masureTime(y)
-    println(s"$n の計測でかかった時間 : ${xTime} 秒")
-    println(s"$m の計測でかかった時間 : ${yTime} 秒")
-    println(s"$n - $m の差分 : ${xTime - yTime} 秒")
+    val xTime = convertUnit(masureTime(x))
+    val yTime = convertUnit(masureTime(y))
+    println(s"$n の計測でかかった時間 : ${xTime._1}${xTime._2}秒")
+    println(s"$m の計測でかかった時間 : ${yTime._1}${yTime._2}秒")
+    println(s"$n - $m の差分 : ${xTime._1 - yTime._1}${xTime._2}秒")
   }
 
   /*
@@ -36,5 +36,9 @@ object BenchMarkUtils {
     println(s"差分 : ${xTime - yTime}")
   }
   */
+
+
+
+
 
 }
