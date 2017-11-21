@@ -1,6 +1,7 @@
 object BenchMark extends App {
 
   val measureTime = BenchMarkUtils.measure _
+  val measureCompareTime = BenchMarkUtils.compareMeasure _
 
   /**
     * Sortテスト
@@ -12,8 +13,6 @@ object BenchMark extends App {
   val NUM = 10000
   val target: Seq[Int] = (1 to NUM).map { _ => Random.nextInt(NUM) }
 
-  measureTime("scala.collection.sorted")(target.sorted)
-  measureTime("scala.util.Sorting")(Sorting.stableSort(target))
-
+  measureCompareTime("scala.collection.sorted", target.sorted)("scala.util.Sorting", Sorting.stableSort(target))
 
 }
