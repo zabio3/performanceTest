@@ -8,6 +8,7 @@ Performance test with scala code
 | Random | scala.util.Random | java.util.concurrent.ThreadLocalRandom (alias of scala.concurrent.forkjoin.ThreadLocalRandom) | - | |
 | collection map func | seq map func | set map func  | - | seq is much faster |
 | constractSeq | Seq apply | List apply | ::Nil | ::Nil is great |
+| argument evaluation | call-by-name | ordinary value | - | when argument evaluate that not use call-by-name, call-by-name was much faster |
 
 ## Reference
 

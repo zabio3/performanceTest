@@ -8,6 +8,7 @@ object BenchMark extends App {
   random()
   collectionMap()
   constractSeq()
+  callByName()
 
   /**
     * seqSort : collectionのsorted
@@ -49,7 +50,24 @@ object BenchMark extends App {
   }
 
   def constractSeq(): Unit = {
+    // Nilは、ただnewしているだけなので速い
     measureCompareTime("Seq apply (Seq[Int] = Seq(1))", () => Seq(1))("Seq[Int] = 1 :: Nil", () => 1 :: Nil)
     measureCompareTime("List apply (Seq[Int] = List(1))", () => List(1))("Seq[Int] = 1 :: Nil", () => 1 :: Nil)
   }
+
+  // 名前渡しされた引数('=> T')は、使用される直前に評価される。また、複数回実行するごとに値が変わる
+  def callByName(): Unit = {
+    /*
+    ()()前が評価されてからチェインされるので、注意が必要!!
+    val byNameWithOutFlag = byName(() => (1 to 100000).toString()) _
+    val byValueWithOutFlag = byValue((1 to 100000).toString()) _
+    measureCompareTime("byName(false)", () => byNameWithOutFlag(false))("byValue(false)",() => byValueWithOutFlag(false))
+    measureCompareTime("byName(true)", () => byNameWithOutFlag(true))("byValue(true)",() => byValueWithOutFlag(true))
+    */
+    measureCompareTime("byName(false)", () => byName(() => (1 to 100000).toString(),false))("byValue(false)",() => byValue((1 to 100000).toString(),false))
+    measureCompareTime("byName(true)", () => byName(() => (1 to 100000).toString(),true))("byValue(true)",() => byValue((1 to 100000).toString(),true))
+  }
+
+  private def byName(value: () => String,flag: Boolean): String = if (flag) value() else ""
+  private def byValue(value: String,flag: Boolean): String = if (flag) value else ""
 }
