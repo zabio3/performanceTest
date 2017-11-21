@@ -1,7 +1,5 @@
 package services
 
-import services.UnitCalcable
-
 object BenchMarkUtils extends UnitCalcable {
 
   def measure(n: String)(cmd: () => Any) = {
@@ -18,11 +16,15 @@ object BenchMarkUtils extends UnitCalcable {
 
   def compareMeasure(n:String, x:() => Any)(m:String, y:() => Any) = {
     val masureTime = measureRunTime _
-    val xTime = convertUnit(masureTime(x))
-    val yTime = convertUnit(masureTime(y))
-    println(s"$n の計測でかかった時間 : ${xTime._1}${xTime._2}秒")
-    println(s"$m の計測でかかった時間 : ${yTime._1}${yTime._2}秒")
-    println(s"$n - $m の差分 : ${xTime._1 - yTime._1}${xTime._2}秒")
+    val xTime = masureTime(x)
+    val yTime = masureTime(y)
+    val xUnitTime = convertUnit(xTime)
+    val yUnitTime = convertUnit(yTime)
+    val diffUnitTime = convertUnit(xTime - yTime)
+
+    println(s"$n の計測でかかった時間 : ${xUnitTime._1}${xUnitTime._2}秒")
+    println(s"$m の計測でかかった時間 : ${yUnitTime._1}${yUnitTime._2}秒")
+    println(s"$n - $m の差分 : ${diffUnitTime._1}${diffUnitTime._2}秒")
   }
 
   /*
@@ -36,9 +38,5 @@ object BenchMarkUtils extends UnitCalcable {
     println(s"差分 : ${xTime - yTime}")
   }
   */
-
-
-
-
 
 }
