@@ -4,7 +4,7 @@ object BenchMarkUtils extends UnitCalcable {
 
   def measure(n: String)(cmd: () => Any) = {
     val runTime = this.measureRunTime(cmd)
-    println(s"$n の計測でかかった時間 : $runTime ナノ秒")
+    println(s"$n was measure time : $runTime nano seconds")
   }
 
   def compareMeasure(n:String, x:() => Any)(m:String, y:() => Any) = {
@@ -17,10 +17,10 @@ object BenchMarkUtils extends UnitCalcable {
     val divisionVolume = xTime / yTime
 
     println("========================================================================================")
-    println(s"$n の計測でかかった時間 : ${xUnitTime._1}${xUnitTime._2}秒")
-    println(s"$m の計測でかかった時間 : ${yUnitTime._1}${yUnitTime._2}秒")
-    println(s"$n - $m の差分 : ${diffUnitTime._1}${diffUnitTime._2}秒")
-    println(s"$n / $m の性能差 : ${divisionVolume} 倍")
+    println(s"$n was measure time : ${xUnitTime._1}${xUnitTime._2} Seconds")
+    println(s"$m was measure time : ${yUnitTime._1}${yUnitTime._2} Seconds")
+    println(s"$n - $m (difference): ${diffUnitTime._1}${diffUnitTime._2} Seconds")
+    println(s"$n / $m (division) : ${divisionVolume} times")
     println("========================================================================================")
   }
 
@@ -30,17 +30,5 @@ object BenchMarkUtils extends UnitCalcable {
     val endTime = System.nanoTime()
     (endTime - startTime) / Giga
   }
-
-  /*
-  import models.BenchMarkSet
-  def compareMeasureA[T1,T2 <: Any](cmdSetX: BenchMarkSet[T1])(cmdSetY: BenchMarkSet[T2]) = {
-    val measureTime = measureRunTime _
-    val xTime = measureTime(cmdSetX.cmd)
-    val yTime = measureTime(cmdSetY.cmd)
-    println(s"${cmdSetX.name} の計測でかかった時間 : $xTime ナノ秒")
-    println(s"${cmdSetY.name} の計測でかかった時間 : $yTime ナノ秒")
-    println(s"差分 : ${xTime - yTime}")
-  }
-  */
 
 }

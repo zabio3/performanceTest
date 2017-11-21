@@ -9,6 +9,7 @@ Performance test with scala code
 | collection map func | seq map func | set map func  | - | seq is much faster |
 | constractSeq | Seq apply | List apply | ::Nil | ::Nil is great |
 | argument evaluation | call-by-name | ordinary value | - | when argument evaluate that not use call-by-name, call-by-name was much faster |
+| valueClass instance | normal | extends AnyVal  | - | 'Extends AnyVal' is much faster |
 
 ## Reference
 

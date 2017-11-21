@@ -1,4 +1,5 @@
 import services.BenchMarkUtils
+import models.{Normal, Value}
 
 object BenchMark extends App {
 
@@ -9,36 +10,25 @@ object BenchMark extends App {
   collectionMap()
   constractSeq()
   callByName()
+  valueClass()
 
-  /**
-    * seqSort : collectionのsorted
-    * Sorting : プリミティブ型に対してのみ有効で、独自型に用いても高速ではない
-    */
+  // compare seq sorted with sorting
   def sorting(): Unit = {
     import scala.util.{Random, Sorting}
     val NUM = 100000
     val target: Seq[Int] = (1 to NUM).map { _ => Random.nextInt(NUM) }
-    /*
-    import models.BenchMarkSet
-    val collectionSorted = BenchMarkSet("scala.collection.sorted", () => target.sorted)
-    val utilSorted = BenchMarkSet("scala.util.Sorting", () => Sorting.stableSort(target))
-    measureCompareTimeA(BenchMarkSet("scala.collection.sorted", () => target.sorted))
-    (BenchMarkSet("scala.util.Sorting", () => Sorting.stableSort(target)))
-    */
     measureCompareTime("scala.collection.sorted", () => target.sorted)("scala.util.Sorting", () => Sorting.stableSort(target))
   }
 
-  /**
-    * scala.util.Random :
-    * scala.concurrent.forkjoin.ThreadLocalRandom :
-    */
+  // compare util.Random with concurrent.forkjoin.ThreadLocalRandom
   def random():Unit = {
     import scala.util.Random
-    import java.util.concurrent.ThreadLocalRandom // import scala.concurrent.forkjoin.ThreadLocalRandom (java.util.concurrent.ThreadLocalRandom のエイリアス)
+    import java.util.concurrent.ThreadLocalRandom // import scala.concurrent.forkjoin.ThreadLocalRandom (alias of java.util.concurrent.ThreadLocalRandom)
     val NUM = 100000
     measureCompareTime("scala.util.Random", () => Random.nextInt(NUM))("scala.concurrent.forkjoin.ThreadLocalRandom", () => ThreadLocalRandom.current().nextInt(NUM))
   }
 
+  // compare with seq map func with set map func
   def collectionMap():Unit = {
     val N: Int = 10000
     val func2: Int => Int = _ % 2
@@ -49,25 +39,26 @@ object BenchMark extends App {
     measureCompareTime("seq map func10(%10)", () => seq map func10)("set map func10(%10)", () => set map func10)
   }
 
+  // Compare Nil join with collection apply
   def constractSeq(): Unit = {
-    // Nilは、ただnewしているだけなので速い
+    // Using Nil is faster (Nil is only new)
     measureCompareTime("Seq apply (Seq[Int] = Seq(1))", () => Seq(1))("Seq[Int] = 1 :: Nil", () => 1 :: Nil)
     measureCompareTime("List apply (Seq[Int] = List(1))", () => List(1))("Seq[Int] = 1 :: Nil", () => 1 :: Nil)
   }
 
-  // 名前渡しされた引数('=> T')は、使用される直前に評価される。また、複数回実行するごとに値が変わる
+  // compare call-by-name with ordinary arguments
   def callByName(): Unit = {
-    /*
-    ()()前が評価されてからチェインされるので、注意が必要!!
-    val byNameWithOutFlag = byName(() => (1 to 100000).toString()) _
-    val byValueWithOutFlag = byValue((1 to 100000).toString()) _
-    measureCompareTime("byName(false)", () => byNameWithOutFlag(false))("byValue(false)",() => byValueWithOutFlag(false))
-    measureCompareTime("byName(true)", () => byNameWithOutFlag(true))("byValue(true)",() => byValueWithOutFlag(true))
-    */
     measureCompareTime("byName(false)", () => byName(() => (1 to 100000).toString(),false))("byValue(false)",() => byValue((1 to 100000).toString(),false))
     measureCompareTime("byName(true)", () => byName(() => (1 to 100000).toString(),true))("byValue(true)",() => byValue((1 to 100000).toString(),true))
   }
 
   private def byName(value: () => String,flag: Boolean): String = if (flag) value() else ""
   private def byValue(value: String,flag: Boolean): String = if (flag) value else ""
+
+  // value class instance compare extend AnyVal with ordinary value
+  def valueClass(): Unit = {
+    measureCompareTime("Normal", () => Normal.User(Normal.Id(1L), Normal.Name("hoge")))("Value extend Anyval",() =>  Value.UserValue(Value.IdValue(1L), Value.NameValue("hoge")))
+  }
+
+
 }
