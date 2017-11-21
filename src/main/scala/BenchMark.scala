@@ -7,6 +7,7 @@ object BenchMark extends App {
   sorting()
   random()
   collectionMap()
+  constractSeq()
 
   /**
     * seqSort : collectionのsorted
@@ -45,5 +46,10 @@ object BenchMark extends App {
     val set: Set[Int] = (1 to N).toSet
     measureCompareTime("seq map func2(%2)", () => seq map func2)("set map func2(%2)", () => set map func2)
     measureCompareTime("seq map func10(%10)", () => seq map func10)("set map func10(%10)", () => set map func10)
+  }
+
+  def constractSeq(): Unit = {
+    measureCompareTime("Seq apply (Seq[Int] = Seq(1))", () => Seq(1))("Seq[Int] = 1 :: Nil", () => 1 :: Nil)
+    measureCompareTime("List apply (Seq[Int] = List(1))", () => List(1))("Seq[Int] = 1 :: Nil", () => 1 :: Nil)
   }
 }
