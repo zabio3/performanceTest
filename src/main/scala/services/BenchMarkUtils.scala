@@ -22,9 +22,11 @@ object BenchMarkUtils extends UnitCalcable {
     val yUnitTime = convertUnit(yTime)
     val diffUnitTime = convertUnit(xTime - yTime)
 
+    println("========================================================================================")
     println(s"$n の計測でかかった時間 : ${xUnitTime._1}${xUnitTime._2}秒")
     println(s"$m の計測でかかった時間 : ${yUnitTime._1}${yUnitTime._2}秒")
     println(s"$n - $m の差分 : ${diffUnitTime._1}${diffUnitTime._2}秒")
+    println("========================================================================================")
   }
 
   /*

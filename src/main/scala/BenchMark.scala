@@ -6,6 +6,7 @@ object BenchMark extends App {
 
   sorting()
   random()
+  collectionMap()
 
   /**
     * seqSort : collectionのsorted
@@ -26,13 +27,23 @@ object BenchMark extends App {
   }
 
   /**
-    * scala.util.Random : 
+    * scala.util.Random :
     * scala.concurrent.forkjoin.ThreadLocalRandom :
     */
   def random():Unit = {
     import scala.util.Random
-    import scala.concurrent.forkjoin.ThreadLocalRandom
+    import java.util.concurrent.ThreadLocalRandom // import scala.concurrent.forkjoin.ThreadLocalRandom (java.util.concurrent.ThreadLocalRandom のエイリアス)
     val NUM = 100000
     measureCompareTime("scala.util.Random", () => Random.nextInt(NUM))("scala.concurrent.forkjoin.ThreadLocalRandom", () => ThreadLocalRandom.current().nextInt(NUM))
+  }
+
+  def collectionMap():Unit = {
+    val N: Int = 10000
+    val func2: Int => Int = _ % 2
+    val func10: Int => Int = _ % 10
+    val seq: Seq[Int] = (1 to N).toSeq
+    val set: Set[Int] = (1 to N).toSet
+    measureCompareTime("seq map func2(%2)", () => seq map func2)("set map func2(%2)", () => set map func2)
+    measureCompareTime("seq map func10(%10)", () => seq map func10)("set map func10(%10)", () => set map func10)
   }
 }
