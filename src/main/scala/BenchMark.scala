@@ -11,6 +11,7 @@ object BenchMark extends App {
   constractSeq()
   callByName()
   valueClass()
+  futureTrap()
 
   // compare seq sorted with sorting
   def sorting(): Unit = {
@@ -60,5 +61,24 @@ object BenchMark extends App {
     measureCompareTime("Normal", () => Normal.User(Normal.Id(1L), Normal.Name("hoge")))("Value extend Anyval",() =>  Value.UserValue(Value.IdValue(1L), Value.NameValue("hoge")))
   }
 
+  def futureTrap(): Unit = {
+    import Thread.sleep
+    import scala.concurrent._
+    import ExecutionContext.Implicits.global
+    val result: Future[Int] = for {
+      a <- Future { sleep(100); println("finish 100"); 100}
+      b <- Future { sleep(50); println("finish 50"); 50}
+    } yield a + b
+
+    val aF = Future { sleep(100); println("finish 100"); 100}
+    val bF = Future { sleep(50); println("finish 50"); 50}
+
+    val result2: Future[Int] = for {
+      a <- aF
+      b <- bF
+    } yield a + b
+
+    measureCompareTime("inside future", () => result.onComplete(println))("outside future", () => result2.onComplete(println))
+  }
 
 }

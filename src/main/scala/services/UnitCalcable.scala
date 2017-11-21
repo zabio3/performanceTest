@@ -16,12 +16,12 @@ trait UnitCalcable {
     val mod = absoluteValue(isPositive) _
 
     mod(x) match {
-      case s if s >= Giga => (mod(s / Giga), "ギガ")
-      case s if s >= Mega => (mod(s / Mega), "メガ")
-      case s if s >= Kilo => (mod(s / Kilo), "キロ")
-      case s if s >= Mill => (mod(s / Mill), "ミリ")
-      case s if s >= Micro => (mod(s / Micro), "マイクロ")
-      case s if s >= Nano => (mod(s / Nano), "ナノ")
+      case s if s >= Giga => (mod(s / Giga), "G")
+      case s if s >= Mega => (mod(s / Mega), "M")
+      case s if s >= Kilo => (mod(s / Kilo), "K")
+      case s if s >= Mill => (mod(s / Mill), "mill")
+      case s if s >= Micro => (mod(s / Micro), "micro")
+      case s if s >= Nano => (mod(s / Nano), "nano")
       case _ => (mod(x), "")
     }
   }
