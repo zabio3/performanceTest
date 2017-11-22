@@ -13,6 +13,7 @@ object BenchMark extends App {
   valueClass()
   futureTrap()
   mapToCollection()
+  reflectionStructureSubType()
 
   // compare seq sorted with sorting
   def sorting(): Unit = {
@@ -85,6 +86,17 @@ object BenchMark extends App {
   def mapToCollection(): Unit = {
     measureCompareTime("toSet after map", () => (0 to 10000).map(_ + 1).toSet)("use breakout after map", () => (0 to 10000).map(_ + 1)(collection.breakOut): Set[Int])
   }
+
+  def reflectionStructureSubType(): Unit = {
+    measureCompareTime("Not Structure Sub Type", () => notReflection(Bar, 1, 2))("Structure Sub Type", () => reflection(Bar, 1, 2))
+  }
+
+  object Bar extends CalcOperator
+  trait CalcOperator { def add(a:Int, b:Int): Int = a + b}
+
+  private def notReflection(calcOperator: CalcOperator, a:Int, b:Int): Int = { calcOperator.add(a,b) }
+
+  private def reflection(obj: {def add(a:Int, b:Int): Int}, a:Int, b:Int):Int = { obj.add(a,b) }
 
 
 }
