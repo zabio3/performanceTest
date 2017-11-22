@@ -23,7 +23,7 @@ object Collection {
     measureCompareTime("seq map func10(%10)", () => seq map func10)("set map func10(%10)", () => set map func10)
   }
 
-  // Compare Nil join with collection apply
+  // compare Nil join with collection apply
   def constractSeq(): Unit = {
     // Using Nil is faster (Nil is only new)
     measureCompareTime("Seq apply (Seq[Int] = Seq(1))", () => Seq(1))("Seq[Int] = 1 :: Nil", () => 1 :: Nil)
@@ -32,6 +32,13 @@ object Collection {
 
   def mapToCollection(): Unit = {
     measureCompareTime("toSet after map", () => (0 to 10000).map(_ + 1).toSet)("use breakout after map", () => (0 to 10000).map(_ + 1)(collection.breakOut): Set[Int])
+  }
+
+  def loop(): Unit = {
+    var acc = 0.0
+    val loopForFunc = () => for (i <- 0 until 100) acc += 4.0 * (1 - (i % 2) * 2) / (2 * i + 1)
+    val loopFoldLeftFunc = () => (0 until 100).foldLeft(0.0)({ (d, i) => d + 4.0 * (1 - (i % 2) * 2) / (2 * i + 1)})
+    measureCompareTime("for loop", () => loopForFunc())("foldLeft loop", () => loopFoldLeftFunc())
   }
 
 }

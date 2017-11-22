@@ -8,6 +8,7 @@ object BenchMark extends App {
   Collection.collectionMap()
   Collection.constractSeq()
   Collection.mapToCollection()
+  Collection.loop()
 
   Util.random()
 
