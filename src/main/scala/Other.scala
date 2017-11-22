@@ -2,7 +2,7 @@ import services.BenchMarkUtils
 import models.{Normal, Value}
 
 object Other {
- val measureCompareTime = BenchMarkUtils.compareMeasure _
+  val measureCompareTime = BenchMarkUtils.compareMeasure _
 
   // compare call-by-name with ordinary arguments
   def callByName(): Unit = {
@@ -15,7 +15,9 @@ object Other {
 
   // value class instance compare extend AnyVal with ordinary value
   def valueClass(): Unit = {
-    measureCompareTime("Normal", () => Normal.User(Normal.Id(1L), Normal.Name("hoge")))("Value extend Anyval",() =>  Value.UserValue(Value.IdValue(1L), Value.NameValue("hoge")))
+    val normalFunc = () => Normal.User(Normal.Id(1L), Normal.Name("hoge"))
+    val extendAnyValFunc = () =>  Value.UserValue(Value.IdValue(1L), Value.NameValue("hoge"))
+    measureCompareTime("Normal", normalFunc)("Value extend Anyval", extendAnyValFunc)
   }
 
   def reflectionStructureSubType(): Unit = {

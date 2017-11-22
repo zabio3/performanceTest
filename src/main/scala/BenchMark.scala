@@ -9,6 +9,7 @@ object BenchMark extends App {
   Collection.constractSeq()
   Collection.mapToCollection()
   Collection.loop()
+  Collection.streamCompare()
 
   Util.random()
 

@@ -31,14 +31,23 @@ object Collection {
   }
 
   def mapToCollection(): Unit = {
-    measureCompareTime("toSet after map", () => (0 to 10000).map(_ + 1).toSet)("use breakout after map", () => (0 to 10000).map(_ + 1)(collection.breakOut): Set[Int])
+    val toSetFunc = () => (0 to 10000).map(_ + 1).toSet
+    val usingBreakOutFunc = () => (0 to 10000).map(_ + 1)(collection.breakOut): Set[Int]
+    measureCompareTime("toSet after map", toSetFunc)("use breakout after map", usingBreakOutFunc)
   }
 
   def loop(): Unit = {
     var acc = 0.0
     val loopForFunc = () => for (i <- 0 until 100) acc += 4.0 * (1 - (i % 2) * 2) / (2 * i + 1)
     val loopFoldLeftFunc = () => (0 until 100).foldLeft(0.0)({ (d, i) => d + 4.0 * (1 - (i % 2) * 2) / (2 * i + 1)})
-    measureCompareTime("for loop", () => loopForFunc())("foldLeft loop", () => loopFoldLeftFunc())
+    measureCompareTime("for loop", loopForFunc)("foldLeft loop", loopFoldLeftFunc)
+  }
+
+  def streamCompare(): Unit = {
+    // 1000L,100000000000L
+    val streamFunc = () => Stream.range(1, 1000000L) take(100)
+    val listFunc = () => List.range(1, 1000000L) take(100)
+    measureCompareTime("streamFunc", streamFunc)("listFunc ", listFunc)
   }
 
 }
