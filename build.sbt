@@ -1,8 +1,10 @@
-name := """perfomanceTest"""
+//noinspection SpellCheckingInspection
+name := """performanceTest"""
 
 version := "1.0-SNAPSHOT"
 scalaVersion := "2.12.3"
 
+//noinspection SpellCheckingInspection,SpellCheckingInspection
 scalacOptions ++= Seq(
   "-deprecation", // 今後廃止の予定のAPIを利用している
   "-encoding", "utf8",
