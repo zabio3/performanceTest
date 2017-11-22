@@ -12,6 +12,7 @@ object BenchMark extends App {
   callByName()
   valueClass()
   futureTrap()
+  mapToCollection()
 
   // compare seq sorted with sorting
   def sorting(): Unit = {
@@ -80,5 +81,10 @@ object BenchMark extends App {
 
     measureCompareTime("inside future", () => result.onComplete(println))("outside future", () => result2.onComplete(println))
   }
+
+  def mapToCollection(): Unit = {
+    measureCompareTime("toSet after map", () => (0 to 10000).map(_ + 1).toSet)("use breakout after map", () => (0 to 10000).map(_ + 1)(collection.breakOut): Set[Int])
+  }
+
 
 }
