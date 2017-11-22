@@ -11,7 +11,7 @@ sbt run
 ```
 
 ### Results (measure runtime)
-| Compare | TargetA | TargetB | TargetC | result |
+| Compare | TargetA | TargetB | TargetC | Result |
 | -------- | -------- | -------- | -------- | -------- |
 | Sorting | scala.collection.sort | scala.util.sorting | - | scala.util.sorting is much faster |
 | Random | scala.util.Random | java.util.concurrent.ThreadLocalRandom (alias of scala.concurrent.forkjoin.ThreadLocalRandom) | - | ThreadLocalRandom is faster than Random |
@@ -26,4 +26,6 @@ sbt run
 ## Reference
  - [Scala Collections Tips and Tricks](https://pavelfatin.com/scala-collections-tips-and-tricks/)
  - [Scala performance tips - ScalaMatsuri2017](https://speakerdeck.com/petitviolet/scala-performance-tips-scalamatsuri2017)
- - [Scala structure subtyping](http://tech-blog.tsukaby.com/archives/849)
+ - [structure sub type](http://tech-blog.tsukaby.com/archives/849)
+ - [scala best practice](http://xuwei-k.hatenablog.com/entry/20130709/1373330529)
+ 
