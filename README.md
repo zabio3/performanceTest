@@ -21,6 +21,7 @@ sbt run
 | lazy evaluate deta structure | stream | list  | - | stream is more faster |
 | adding at the tail | mutable 'Vector' | immutable 'ArrayBuffer'   | - | 'ArrayBuffer' is more faster |
 | insert top | mutable 'List' | immutable 'ListBuffer'   | - | 'List' is faster 'ListBuffer' |
+| array element size |length|size|-|Prefer length to size for arrays|
 | Random | scala.util.Random | java.util.concurrent.ThreadLocalRandom (alias of scala.concurrent.forkjoin.ThreadLocalRandom) | - | ThreadLocalRandom is faster than Random |
 | future position | inside | outside  | - | Be careful about timing of 'Future.apply' |
 | argument evaluation | call-by-name | ordinary value | - | when argument evaluate that not use call-by-name, call-by-name was much faster |

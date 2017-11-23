@@ -72,5 +72,10 @@ object Collection {
     measureCompareTime("mutable List", xsFunc)("immutable ListBuffer", ysFunc)
   }
 
+  def sizeOrLength(): Unit = {
+    val array = (1 to 100000).toArray
+    measureCompareTime("array.length", () => array.length)("array.size", () => array.size)
+  }
+
 
 }
