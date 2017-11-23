@@ -12,6 +12,7 @@ object BenchMark extends App {
   Collection.iteratorCompareStream()
   Collection.streamCompare()
   Collection.addingTail()
+  Collection.insertTop()
 
   Util.random()
 

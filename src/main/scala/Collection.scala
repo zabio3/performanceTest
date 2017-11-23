@@ -1,6 +1,6 @@
 import services.BenchMarkUtils
 
-import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 
 object Collection {
 
@@ -64,6 +64,14 @@ object Collection {
     val xsFunc = () => (1 to 10000) foreach {n => xs = xs :+ n}
     val ysFunc = () => (1 to 10000) foreach {n => ys += n}
     measureCompareTime("mutable Vector", xsFunc)("immutable ArrayBuffer", ysFunc)
+  }
+
+  def insertTop(): Unit = {
+    var xs = List.empty[Int]
+    val ys = ListBuffer.empty[Int]
+    val xsFunc = () => (1 to 10000) foreach {n => n :: xs}
+    val ysFunc = () => (1 to 10000) foreach {n => n +=: ys}
+    measureCompareTime("mutable List", xsFunc)("immutable ListBuffer", ysFunc)
   }
 
 
