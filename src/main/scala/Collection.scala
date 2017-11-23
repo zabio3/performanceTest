@@ -77,5 +77,8 @@ object Collection {
     measureCompareTime("array.length", () => array.length)("array.size", () => array.size)
   }
 
+  def emptyDeclaration(): Unit = {
+    measureCompareTime("Seq[Int]()", () => Seq[Int]())("Seq.empty", () => Seq.empty)
+  }
 
 }

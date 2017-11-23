@@ -87,6 +87,25 @@ stream : 要素を遅延評価され、呼び出された要素のみが計算�
 
  - [Scala foldLeft performance 4x worse than for loop when working with floats](https://stackoverflow.com/questions/24293545/scala-foldleft-performance-4x-worse-than-for-loop-when-working-with-floats)
 
+#### ▼ コレクションの初期値宣言
+
+| 対象A | 対象B | 総評 |
+| -------- | -------- | -------- | 
+| Seq() | Seq.empty | 'Seq.empty'の方がはやい |
+
+immutableなコレクションクラスは、シングルトンの空実装を提供。すべてのファクトリメソッドが作成されたコレクションの長さをチェックするわけではない。
+したがって、コンパイル時にコレクションの空白が明白になるようにすることで、ヒープスペース（空のコレクションインスタンスを再利用する）またはCPUサイクル（それ以外の場合は実行時の長さチェックに費やされる）を節約できる。
+
+#### ▼ Arrayでの要素数の算出
+
+| 対象A | 対象B | 総評 |
+| -------- | -------- | -------- | 
+| length | size | 'length'の方がはやい |
+
+Array.sizeの呼び出しは、暗黙の変換によって実装されているため、メソッドの呼び出しで中間ラップオブジェクトが作成される。JVMでのエスケープ解析を有効にしない限りは、コードのパフォーマンスを低下させる。
+
+Num 10Kの際には、200倍の性能差。
+
 #### ▼ 末尾追加
 
 | 対象A | 対象B| 総評 |

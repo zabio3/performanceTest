@@ -4,6 +4,8 @@ object BenchMark extends App {
 
   val measureCompareTime = BenchMarkUtils.compareMeasure _
 
+  Collection.emptyDeclaration()
+  /*
   Collection.sizeOrLength()
   Collection.sorting()
   Collection.collectionMap()
@@ -21,5 +23,6 @@ object BenchMark extends App {
   LanguageFeature.callByName()
   LanguageFeature.valueClass()
   LanguageFeature.reflectionStructureSubType()
+  */
 
 }
