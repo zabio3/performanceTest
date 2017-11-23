@@ -159,20 +159,19 @@ Futureが複数あり、for式で展開していく場合
 
 for式は上から順に処理されていくため、Futureを複数for式で利用している場合は見直しが必要。（同期処理になるため）
 
+#### ▼ 構造的部分型の性能
+
+| 対象A | 対象B | 総評 |
+| -------- | -------- | -------- |
+| 構造的部分型の使用 | 引数オブジェクトの利用  | 構造的部分型を使用しない方が早い |
+
+構造的部分型を使うと、インタフェースであるtraitやclassを用意しなくても、メソッドを利用可能になるがリフレクションが発生するため呼び出しにかかるコストが増加する
+
 ## 参考
  - [Scala performance tips - ScalaMatsuri2017](https://speakerdeck.com/petitviolet/scala-performance-tips-scalamatsuri2017)
  - [Scalaの名前渡しは遅延評価ではない](http://kannokanno.hatenablog.com/entry/20130202/1359777436)
  - [コレクションの性能特性](http://docs.scala-lang.org/ja/overviews/collections/performance-characteristics.html)
  - [あなたのScalaを爆速にする７つの方法 - ScalaMatsuri2016](https://www.slideshare.net/x1ichi/scala-57670004)
  - [Scalaにおける細かい最適化のプラクティス](http://xuwei-k.hatenablog.com/entry/20130709/1373330529)
-
-
-# その他
-| 比較項目 | 対象A | 対象B | 対象C | 総評 |
-| -------- | -------- | -------- | -------- | -------- |
-| structure sub type (reflection)| not use | use structure sub type | - | not use structure sub type is much faster |
-
-
+ - [Scalaの構造的部分型の性能に注意](http://tech-blog.tsukaby.com/archives/849)
  - [Scala Collections Tips and Tricks](https://pavelfatin.com/scala-collections-tips-and-tricks/)
-
- - [structure sub type](http://tech-blog.tsukaby.com/archives/849)

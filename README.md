@@ -2,8 +2,6 @@
 
 [![CircleCI](https://circleci.com/gh/zabio3/performanceTest.svg?style=svg)](https://circleci.com/gh/zabio3/performanceTest)
 
-[japanese](text_ja/README.md)
-
 performance regression testing ( sorting, instance create, evaluation etc ...)
 
 ### Usage

@@ -24,7 +24,7 @@ object Collection {
   }
 
   // compare Nil join with collection apply
-  def constractSeq(): Unit = {
+  def constructSeq(): Unit = {
     // Using Nil is faster (Nil is only new)
     measureCompareTime("Seq apply (Seq[Int] = Seq(1))", () => Seq(1))("Seq[Int] = 1 :: Nil", () => 1 :: Nil)
     measureCompareTime("List apply (Seq[Int] = List(1))", () => List(1))("Seq[Int] = 1 :: Nil", () => 1 :: Nil)
@@ -65,7 +65,7 @@ object Collection {
   }
 
   def insertTop(): Unit = {
-    var xs = List.empty[Int]
+    val xs = List.empty[Int]
     val ys = ListBuffer.empty[Int]
     val xsFunc = () => (1 to 10000) foreach {n => n :: xs}
     val ysFunc = () => (1 to 10000) foreach {n => n +=: ys}
