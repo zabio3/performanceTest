@@ -81,4 +81,9 @@ object Collection {
     measureCompareTime("Seq[Int]()", () => Seq[Int]())("Seq.empty", () => Seq.empty)
   }
 
+  def emptyCheck(): Unit = {
+    val seq = 1 :: 2 :: 3 :: Nil
+    measureCompareTime("!seq.isEmpty", () => !seq.isEmpty)("seq.nonEmpty", () => seq.nonEmpty)
+  }
+
 }
