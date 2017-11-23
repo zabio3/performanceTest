@@ -9,7 +9,7 @@ object Collection {
   // compare seq sorted with sorting
   def sorting(): Unit = {
     import scala.util.{Random, Sorting}
-    val NUM = 100000
+    val NUM = 10000
     val target: Seq[Int] = (1 to NUM).map { _ => Random.nextInt(NUM) }
     measureCompareTime("scala.collection.sorted", () => target.sorted)("scala.util.Sorting", () => Sorting.stableSort(target))
   }
@@ -17,12 +17,10 @@ object Collection {
   // compare with seq map func with set map func
   def collectionMap():Unit = {
     val N: Int = 10000
-    val func2: Int => Int = _ % 2
-    val func10: Int => Int = _ % 10
-    val seq: Seq[Int] = (1 to N).toSeq
-    val set: Set[Int] = (1 to N).toSet
-    measureCompareTime("seq map func2(%2)", () => seq map func2)("set map func2(%2)", () => set map func2)
-    measureCompareTime("seq map func10(%10)", () => seq map func10)("set map func10(%10)", () => set map func10)
+    val seq = (1 to N).toSeq
+    val set = (1 to N).toSet
+    measureCompareTime("seq map %2", () => seq map { _ % 2 })("set map %2", () => set map { _ % 2 })
+    measureCompareTime("seq map %1000", () => seq map { _ % 1000 })("set map %1000", () => set map { _ % 1000 })
   }
 
   // compare Nil join with collection apply

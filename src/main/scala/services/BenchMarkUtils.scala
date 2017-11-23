@@ -17,8 +17,8 @@ object BenchMarkUtils extends UnitCalcable {
     val divisionVolume = xTime / yTime
 
     println("========================================================================================")
-    println(s"$n was measure time : ${xUnitTime._1} ${xUnitTime._2} Seconds")
-    println(s"$m was measure time : ${yUnitTime._1} ${yUnitTime._2} Seconds")
+    println(s"$n was measure : ${xUnitTime._1} ${xUnitTime._2} Seconds")
+    println(s"$m was measure : ${yUnitTime._1} ${yUnitTime._2} Seconds")
     println(s"$n - $m (difference): ${diffUnitTime._1} ${diffUnitTime._2} Seconds")
     println(s"$n / $m (division) : ${divisionVolume} times")
     println("========================================================================================")
