@@ -1,5 +1,7 @@
 import services.BenchMarkUtils
 
+import scala.collection.mutable.ArrayBuffer
+
 object Collection {
 
   val measureCompareTime = BenchMarkUtils.compareMeasure _
@@ -43,11 +45,26 @@ object Collection {
     measureCompareTime("for loop", loopForFunc)("foldLeft loop", loopFoldLeftFunc)
   }
 
+  def iteratorCompareStream(): Unit = {
+    (1 to 10000).toIterator
+    (1 to 10000).toStream
+    measureCompareTime("Iterator", () => (1 to 10000).toIterator)("Stream", () => (1 to 10000).toStream)
+  }
+
   def streamCompare(): Unit = {
     // 1000L,100000000000L
-    val streamFunc = () => Stream.range(1, 1000000L) take(100)
-    val listFunc = () => List.range(1, 1000000L) take(100)
+    val streamFunc = () => Stream.range(1, 1000000L) take(1000000)
+    val listFunc = () => List.range(1, 1000000L) take(1000000)
     measureCompareTime("streamFunc", streamFunc)("listFunc ", listFunc)
   }
+
+  def addingTail(): Unit = {
+    var xs = Vector.empty[Int]
+    val ys = ArrayBuffer.empty[Int]
+    val xsFunc = () => (1 to 10000) foreach {n => xs = xs :+ n}
+    val ysFunc = () => (1 to 10000) foreach {n => ys += n}
+    measureCompareTime("mutable Vector", xsFunc)("immutable ArrayBuffer", ysFunc)
+  }
+
 
 }

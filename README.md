@@ -18,6 +18,8 @@ sbt run
 | loop | for | foldLeft | - | 'for'  is faster |
 | collection map func | seq map func | set map func  | - | seq is much faster |
 | constructSeq | Seq apply | List apply | ::Nil | ::Nil is great |
+| lazy evaluate deta structure | stream | list  | - | stream is more faster |
+| adding at the tail | mutable 'Vector' | immutable 'ArrayBuffer'   | - | 'ArrayBuffer' is more faster |
 | Random | scala.util.Random | java.util.concurrent.ThreadLocalRandom (alias of scala.concurrent.forkjoin.ThreadLocalRandom) | - | ThreadLocalRandom is faster than Random |
 | future position | inside | outside  | - | Be careful about timing of 'Future.apply' |
 | argument evaluation | call-by-name | ordinary value | - | when argument evaluate that not use call-by-name, call-by-name was much faster |
@@ -29,4 +31,5 @@ sbt run
  - [Scala performance tips - ScalaMatsuri2017](https://speakerdeck.com/petitviolet/scala-performance-tips-scalamatsuri2017)
  - [structure sub type](http://tech-blog.tsukaby.com/archives/849)
  - [scala best practice](http://xuwei-k.hatenablog.com/entry/20130709/1373330529)
- 
+ - [collection performance](http://docs.scala-lang.org/ja/overviews/collections/performance-characteristics.html)
+ - [performance ScalaMatsuri2016](https://www.slideshare.net/x1ichi/scala-57670004)
