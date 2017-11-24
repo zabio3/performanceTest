@@ -124,5 +124,28 @@ object Collection {
     measureCompareTime("random read Vector", xFunc)("random read ListBuffer", yFunc)
   }
 
+  private def xFibonacci(h: Int = 1, n: Int = 1): Stream[Int] = h #:: xFibonacci(n, h + n)
+
+  private def yFibonacci(n: Int = 1): Array[Int] =
+    if (n == 0) {
+      Array.empty[Int]
+    } else {
+      val b = new Array[Int](n)
+      b(0) = 1
+      for (i <- 0 until n - 1) {
+        val n1 = if ( i == 0 ) 0 else b( i - 1 )
+        val n2 = b(i)
+        b( i + 1 ) = n1 + n2
+      }
+      b
+    }
+
+  def compareFibonacci(): Unit = {
+    val n = 10000
+    val xFiboFunc = () => xFibonacci().take(n)
+    val yFiboFunc = () =>  yFibonacci(n)
+    measureCompareTime("fibonacci(stream)", xFiboFunc)("fibonacci(array)", yFiboFunc)
+  }
+
 
 }

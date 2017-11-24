@@ -30,11 +30,6 @@ sbt run
 | toXXX (XXX は、コレクション名)| breakOutの利用 | breakOutを利用した方が早い。|
 
 mapでなくてもCanBuildFromを使っている関数であれば、breakOutを利用した方が早い。
-mapは2種類あり、Seq(1,2).map(_ + 1)などでは、下記の方のmapが呼ばれている。
-
-```
-def map[B](f: Int => B): scala.collection.TraversableOnce[B]
-```
 
 implicit取る方を強制的に呼ぶためにbreakout渡してる + 好きな型にmapしつつ変換することで、コレクションを2回生成させる手間を1回に省くことが可能
 
@@ -200,6 +195,14 @@ ListのdropRightは、要素を削除するのに、O(n)かかるが、Buffer系
 
  - Arrayのランダム読み込みは、定数
  - ArrayBuffer,Vectorは、内部でArrayを利用している
+
+#### ▼ フィボナッチ数の作成
+
+| 対象A | 対象B| 総評 |
+| -------- | -------- | -------- | 
+| Stream | Array | Streamの方が早い |
+
+Streamが遅延評価のため。数列が具象化される時は、それなりに時間がかかる。
 
 ## ■ 便利機能
 

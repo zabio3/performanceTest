@@ -4,7 +4,7 @@ object BenchMark extends App {
 
   val measureCompareTime = BenchMarkUtils.compareMeasure _
 
-  Collection.randomRead()
+  Collection.compareFibonacci()
 
   /*
   Collection.sizeOrLength()
@@ -23,6 +23,7 @@ object BenchMark extends App {
   Collection.compareExists()
   Collection.compareEquals()
   Collection.compareDelete()
+  Collection.randomRead()
 
   Util.random()
 
