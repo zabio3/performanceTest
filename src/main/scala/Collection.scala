@@ -104,4 +104,14 @@ object Collection {
     measureCompareTime("seq1.sameElements(seq2)", () => seq1.sameElements(seq2))("seq1 == seq2", () => seq1 == seq2)
   }
 
+  def compareDelete(): Unit = {
+    val n = 10000
+    var xs = List(1 to n: _*)
+    val ys = ListBuffer(1 to n: _*)
+    val xsFunc = () => xs = xs.tail; xs = xs.dropRight(0)
+    val ysFunc = () => ys.remove(0); ys.remove(ys.size - 1)
+    measureCompareTime("var List delete", xsFunc)("val ListBuffer delete", ysFunc)
+  }
+
+
 }

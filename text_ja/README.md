@@ -182,6 +182,15 @@ attayやIteratorなどは、'=='では値の比較ができない。
 - 'var List'は、先頭とその他の要素を別で管理しているため、新しい要素をすぐ作ることが可能。
 - 'val ListBuffer'は、vaList内部変数内部変数の再代入を行う
 
+#### ▼ 要素削除
+
+| 対象A | 対象B| 総評 |
+| -------- | -------- | -------- | 
+| 可変なList | 不変なListBuffer | 不変なListBuffer |
+
+n=10Kの場合、約15倍差がでた。
+ListのdropRightは、要素を削除するのに、O(n)かかるが、Buffer系のremoveは、定数時間かかる(Buffer系以外は、遅い。)
+また、dropRightとtakeは同様の処理ができ、takeの方が少しばかり早い。
 
 ## ■ 便利機能
 
