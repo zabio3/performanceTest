@@ -186,11 +186,20 @@ attayやIteratorなどは、'=='では値の比較ができない。
 
 | 対象A | 対象B| 総評 |
 | -------- | -------- | -------- | 
-| 可変なList | 不変なListBuffer | 不変なListBuffer |
+| 可変なList | 不変なListBuffer | 不変なListBufferの方が早い |
 
 n=10Kの場合、約15倍差がでた。
 ListのdropRightは、要素を削除するのに、O(n)かかるが、Buffer系のremoveは、定数時間かかる(Buffer系以外は、遅い。)
 また、dropRightとtakeは同様の処理ができ、takeの方が少しばかり早い。
+
+#### ▼ ランダム読み込み
+
+| 対象A | 対象B| 総評 |
+| -------- | -------- | -------- | 
+| Vector | ListBuffer | Vectorの方が早い |
+
+ - Arrayのランダム読み込みは、定数
+ - ArrayBuffer,Vectorは、内部でArrayを利用している
 
 ## ■ 便利機能
 

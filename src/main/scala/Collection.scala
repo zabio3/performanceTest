@@ -113,5 +113,16 @@ object Collection {
     measureCompareTime("var List delete", xsFunc)("val ListBuffer delete", ysFunc)
   }
 
+  def randomRead(): Unit = {
+    val n = 10000
+    val xData = Vector(1 to n: _*)
+    val yData = ListBuffer(1 to n:_*)
+
+    import java.util.concurrent.ThreadLocalRandom
+    val xFunc = () => (1 to xData.length ) map { _ => xData( ThreadLocalRandom.current().nextInt(n) )}
+    val yFunc = () => (1 to yData.length ) map { _ => yData( ThreadLocalRandom.current().nextInt(n) )}
+    measureCompareTime("random read Vector", xFunc)("random read ListBuffer", yFunc)
+  }
+
 
 }
