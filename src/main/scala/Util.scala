@@ -14,4 +14,16 @@ object Util {
     measureCompareTime("scala.util.Random", utilRandomFunc)("scala.concurrent.forkjoin.ThreadLocalRandom", threadLocalRandomFunc)
   }
 
+  def regularExpression(): Unit = {
+    import scala.language.postfixOps
+    val data = "aeajfcsUw+OHopAduwbUbudiIjioewA0jw+varw"
+    val re = """(?<=\w+)/.+""" r
+    val ms = re findAllIn data
+    val xsFunc = () => if (ms.isEmpty) None else Some(ms.next())
+    val re2 = """\w+/""" r
+    val ysFunc = () => re2 findPrefixMatchOf data map(_.after.toString)
+    println(xsFunc(), ysFunc())
+    measureCompareTime("findAllIn and positive after read", () => (0 to 100).foreach(_ => xsFunc()))("findPrefixOf ", () => (0 to 100).foreach((_ => ysFunc())))
+  }
+
 }
