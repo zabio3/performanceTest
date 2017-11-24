@@ -132,6 +132,23 @@ seqで、num=10000の場合、約180倍の差。
 無限のストリームを扱う場合は、lengthなんかはしないと思うが、lengthCompareで扱うこと。
 streamの1000000Lの場合で、約7倍の性能差。
 
+#### ▼ 要素の存在チェック
+
+| 対象A | 対象B | 総評 |
+| -------- | -------- | -------- | 
+| seq exists |  seq nonEmpty | nonEmptyの方が早い |
+
+約50 ~ 100倍の差。existsのコードは冗長
+
+```
+  def exists(p: A => Boolean): Boolean = {
+    var res = false
+    while (!res && hasNext) res = p(next())
+    res
+  }
+```
+
+existsは、中でwhileのループを回そうとするので冗長。
 
 #### ▼ 末尾追加
 

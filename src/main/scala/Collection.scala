@@ -90,6 +90,11 @@ object Collection {
     val seq:Seq[Int] = (1 to 100000).toSeq
     val streme = Stream.range(1, 1000000L)
     measureCompareTime("seq.lengthCompare(5000) > 0", () => seq.lengthCompare(5000) > 0)("seq.length > 5000", () => seq.length > 5000)
-    measureCompareTime("streme.lengthCompare(5000) > 0", () => streme.lengthCompare(5000) > 0)("streme.length > 5000", () => streme.length > 5000)
+    measureCompareTime("stream.lengthCompare(5000) > 0", () => streme.lengthCompare(5000) > 0)("stream.length > 5000", () => streme.length > 5000)
+  }
+
+  def compareExists(): Unit = {
+    val seq:Seq[Int] = (1 to 100000).toSeq
+    measureCompareTime("seq.exists(_ => true)", () => seq.exists(_ => true))("seq.nonEmpty", () => seq.nonEmpty)
   }
 }

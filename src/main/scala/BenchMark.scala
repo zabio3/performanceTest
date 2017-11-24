@@ -4,7 +4,7 @@ object BenchMark extends App {
 
   val measureCompareTime = BenchMarkUtils.compareMeasure _
 
-  Collection.compareLength()
+  Collection.compareExists()
   /*
   Collection.sizeOrLength()
   Collection.sorting()
@@ -18,6 +18,7 @@ object BenchMark extends App {
   Collection.insertTop()
   Collection.emptyDeclaration()
   Collection.emptyCheck()
+  Collection.compareLength()
 
   Util.random()
 
