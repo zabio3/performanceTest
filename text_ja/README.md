@@ -116,6 +116,23 @@ Num 10Kの際には、200倍の性能差。
 
 Set, Option, Map, Iteratorも同様。約1.2倍。
 
+#### ▼ 要素の長さ比較
+
+lengthCompareメソッドは、コレクションの長さと引数のInt値を比べて大小関係を表すInt値を返却。
+正: 1, 同じ: 0, 負: -n(nは、差分)
+
+| 対象A | 対象B | 総評 |
+| -------- | -------- | -------- | 
+| seq lengthCompare |  seq length | lengthの方が早い |
+| stream lengthCompare | stream length | lengthCompareの方が早い |
+
+値が小さい場合は、lengthを利用した方が早い。
+seqで、num=10000の場合、約180倍の差。
+
+無限のストリームを扱う場合は、lengthなんかはしないと思うが、lengthCompareで扱うこと。
+streamの1000000Lの場合で、約7倍の性能差。
+
+
 #### ▼ 末尾追加
 
 | 対象A | 対象B| 総評 |

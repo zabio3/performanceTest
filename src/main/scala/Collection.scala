@@ -17,7 +17,7 @@ object Collection {
   // compare with seq map func with set map func
   def collectionMap():Unit = {
     val N: Int = 10000
-    val seq = (1 to N).toSeq
+    val seq:Seq[Int] = (1 to N).toSeq
     val set = (1 to N).toSet
     measureCompareTime("seq map %2", () => seq map { _ % 2 })("set map %2", () => set map { _ % 2 })
     measureCompareTime("seq map %1000", () => seq map { _ % 1000 })("set map %1000", () => set map { _ % 1000 })
@@ -86,4 +86,10 @@ object Collection {
     measureCompareTime("!seq.isEmpty", () => !seq.isEmpty)("seq.nonEmpty", () => seq.nonEmpty)
   }
 
+  def compareLength(): Unit = {
+    val seq:Seq[Int] = (1 to 100000).toSeq
+    val streme = Stream.range(1, 1000000L)
+    measureCompareTime("seq.lengthCompare(5000) > 0", () => seq.lengthCompare(5000) > 0)("seq.length > 5000", () => seq.length > 5000)
+    measureCompareTime("streme.lengthCompare(5000) > 0", () => streme.lengthCompare(5000) > 0)("streme.length > 5000", () => streme.length > 5000)
+  }
 }
