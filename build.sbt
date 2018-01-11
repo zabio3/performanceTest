@@ -13,3 +13,6 @@ scalacOptions ++= Seq(
   "-Xlint" // その他、望ましい書き方や落とし穴についての情報
   // "-Xfatal-warnings" // 警告をエラーとして扱う
 )
+
+// cats-core: Most core type classes and functionality (required).
+libraryDependencies += "org.typelevel" %% "cats-core" % "1.0.1"

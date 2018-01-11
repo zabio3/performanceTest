@@ -4,7 +4,9 @@ object BenchMark extends App {
 
   val measureCompareTime = BenchMarkUtils.compareMeasure _
 
-  Util.regularExpression()
+
+  Util.taraiFunc()
+  // Util.regularExpression()
 
   /*
   Collection.sizeOrLength()
